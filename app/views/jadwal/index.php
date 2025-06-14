@@ -34,7 +34,7 @@
                         </div>
                         <div class="ml-4">
                             <h3 class="text-xl font-semibold"><?= htmlspecialchars($dokter['nama_dokter']); ?></h3>
-                            <p class="text-gray-600"><?= htmlspecialchars($dokter['spesialisasi']); ?></p>
+                            <p class="text-gray-600"><?= htmlspecialchars($dokter['spesisalis']); ?></p>
                         </div>
                     </div>
                     <div class="space-y-2">

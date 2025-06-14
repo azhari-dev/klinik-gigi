@@ -13,7 +13,8 @@ class Dokter {
      * @return array Daftar dokter
      */
     public function getAll() {
-        $this->db->query('SELECT * FROM dokter ORDER BY nama_dokter ASC');
+        // Kolom 'spesialisasi' diubah menjadi 'spesialis' sesuai database baru
+        $this->db->query('SELECT dokter_id, nama_dokter, spesialis FROM dokter ORDER BY nama_dokter ASC');
         return $this->db->resultSet();
     }
 
@@ -22,16 +23,21 @@ class Dokter {
      * @return array Jadwal dokter
      */
     public function getJadwal() {
+        // Query ini menggabungkan jadwal dari tabel jadwal_dokter untuk setiap dokter.
         $this->db->query('
             SELECT 
-                dokter_id,
-                nama_dokter,
-                spesialisasi,
-                jadwal_praktik,
-                no_hp,
-                email
-            FROM dokter 
-            ORDER BY nama_dokter ASC
+                d.dokter_id,
+                d.nama_dokter,
+                d.spesialis,
+                GROUP_CONCAT(
+                    CONCAT(jd.hari, ": ", TIME_FORMAT(jd.jam_mulai, "%H:%i"), " - ", TIME_FORMAT(jd.jam_selesai, "%H:%i")) 
+                    ORDER BY FIELD(jd.hari, "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu")
+                    SEPARATOR ", "
+                ) as jadwal_praktik
+            FROM dokter d
+            LEFT JOIN jadwal_dokter jd ON d.dokter_id = jd.dokter_id
+            GROUP BY d.dokter_id, d.nama_dokter, d.spesialis
+            ORDER BY d.nama_dokter ASC
         ');
         return $this->db->resultSet();
     }
@@ -53,16 +59,14 @@ class Dokter {
      * @return bool Status berhasil atau tidak
      */
     public function create($data) {
+        // Disederhanakan sesuai dengan kolom di database baru
         $this->db->query('
-            INSERT INTO dokter (nama_dokter, spesialisasi, no_hp, email, jadwal_praktik) 
-            VALUES (:nama_dokter, :spesialisasi, :no_hp, :email, :jadwal_praktik)
+            INSERT INTO dokter (nama_dokter, spesialis) 
+            VALUES (:nama_dokter, :spesialis)
         ');
 
         $this->db->bind(':nama_dokter', $data['nama_dokter']);
-        $this->db->bind(':spesialisasi', $data['spesialisasi']);
-        $this->db->bind(':no_hp', $data['no_hp']);
-        $this->db->bind(':email', $data['email']);
-        $this->db->bind(':jadwal_praktik', $data['jadwal_praktik']);
+        $this->db->bind(':spesialis', $data['spesialis']);
 
         return $this->db->execute();
     }
