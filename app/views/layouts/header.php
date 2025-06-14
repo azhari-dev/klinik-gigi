@@ -6,9 +6,9 @@
             </div>
             <div class="flex space-x-4">
                 <a href="index.php" class="text-gray-600 hover:text-primary">Beranda</a>
-                <a href="reservasi.php" class="text-gray-600 hover:text-primary">Reservasi</a>
-                <a href="jadwal.php" class="text-gray-600 hover:text-primary">Jadwal Dokter</a>
-                <a href="admin/" class="bg-primary text-white px-4 py-2 rounded">Admin</a>
+                <a href="<?= BASE_URL; ?>/reservasi" class="text-gray-600 hover:text-primary">Reservasi</a>
+                <a href="<?= BASE_URL; ?>/jadwal" class="text-gray-600 hover:text-primary">Jadwal Dokter</a>
+                <a href="<?= BASE_URL; ?>/admin" class="bg-primary text-white px-4 py-2 rounded">Admin</a>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@
     </script>
 </head>
 <body class="bg-gray-50">
-    <?php include 'includes/navbar.php'; ?>
+    <?php require_once '../app/views/layouts/header.php'; ?>
     
     <div class="max-w-6xl mx-auto p-6 py-16">
         <h2 class="text-3xl font-bold text-center mb-8">Jadwal Dokter</h2>
@@ -71,6 +71,6 @@
         </div>
     </div>
 
-    <?php include 'includes/footer.php'; ?>
+    <?php require_once '../app/views/layouts/footer.php'; ?>
 </body>
 </html>

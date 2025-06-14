@@ -23,7 +23,7 @@ session_start();
     </script>
 </head>
 <body class="bg-gray-50">
-    <?php include '../includes/admin_navbar.php'; ?>
+    <?php require_once '../app/views/layouts/header_admin.php'; ?>
     
     <div class="max-w-7xl mx-auto p-6">
         <h2 class="text-3xl font-bold text-center mb-8">Panel Admin</h2>
@@ -59,3 +59,4 @@ session_start();
     <script src="../assets/js/admin.js"></script>
 </body>
 </html>
+

@@ -21,7 +21,7 @@
 </head>
 
 <body class="bg-gray-50">
-    <?php include 'includes/navbar.php'; ?>
+    <?php require_once '../app/views/layouts/header.php'; ?>
 
     <!-- Hero Section -->
     <div class="bg-gradient-to-r from-primary to-secondary text-white py-16">
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <?php include 'includes/footer.php'; ?>
+    <?php require_once '../app/views/layouts/footer.php' ; ?>
 </body>
 
 </html>
