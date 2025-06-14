@@ -2,11 +2,12 @@
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex justify-between items-center py-4">
             <div class="flex items-center">
-                <a href="../index.php" class="text-2xl font-bold text-primary">🦷 Klinik Gigi Sehat - Admin</a>
+                <a href="<?= BASE_URL; ?>" class="text-2xl font-bold text-primary">🦷 Klinik Gigi Sehat - Admin</a>
             </div>
             <div class="flex space-x-4">
-                <a href="../index.php" class="text-gray-600 hover:text-primary">Kembali ke Home</a>
-                <a href="logout.php" class="bg-red-600 text-white px-4 py-2 rounded">Logout</a>
+                <a href="<?= BASE_URL; ?>" class="text-gray-600 hover:text-primary">Kembali ke Home</a>
+                <span class="text-gray-600">|</span>
+                <span class="text-gray-800 font-medium">Admin Panel</span>
             </div>
         </div>
     </div>

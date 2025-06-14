@@ -40,23 +40,22 @@ session_start();
 
         <!-- Tabs Content -->
         <div id="antrian-tab" class="tab-content">
-            <?php include 'components/antrian.php'; ?>
+            <?php include 'partials/antrian.php'; ?>
         </div>
 
         <div id="pemeriksaan-tab" class="tab-content hidden">
-            <?php include 'components/pemeriksaan.php'; ?>
+            <?php include 'partials/pemeriksaan.php'; ?>
         </div>
 
         <div id="pembayaran-tab" class="tab-content hidden">
-            <?php include 'components/pembayaran.php'; ?>
+            <?php include 'partials/pembayaran.php'; ?>
         </div>
 
         <div id="riwayat-tab" class="tab-content hidden">
-            <?php include 'components/riwayat.php'; ?>
+            <?php include 'partials/riwayat.php'; ?>
         </div>
     </div>
 
-    <script src="../assets/js/admin.js"></script>
+    <script src="../public/js/admin.js"></script>
 </body>
 </html>
-
