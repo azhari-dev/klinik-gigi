@@ -8,19 +8,13 @@ class Dokter {
         $this->db = new Database; // Instansiasi koneksi DB
     }
 
-    /**
-     * Mengambil semua data dokter
-     * @return array Daftar dokter
-     */
+    // Mengambil semua data dokter
     public function getAll() {
         $this->db->query('SELECT * FROM dokter ORDER BY nama_dokter ASC');
         return $this->db->resultSet();
     }
 
-    /**
-     * Mengambil jadwal praktik dokter
-     * @return array Jadwal dokter
-     */
+    // Mengambil jadwal praktik dokter
     public function getJadwal() {
         $this->db->query('
             SELECT 
@@ -36,22 +30,14 @@ class Dokter {
         return $this->db->resultSet();
     }
 
-    /**
-     * Mengambil data dokter berdasarkan ID
-     * @param int $id ID dokter
-     * @return array|false Data dokter atau false jika tidak ditemukan
-     */
+    // Mengambil data dokter berdasarkan ID
     public function getById($id) {
         $this->db->query('SELECT * FROM dokter WHERE dokter_id = :id');
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
 
-    /**
-     * Membuat data dokter baru
-     * @param array $data Data dokter
-     * @return bool Status berhasil atau tidak
-     */
+    // Menambahkan dokter baru
     public function create($data) {
         $this->db->query('
             INSERT INTO dokter (nama_dokter, spesialisasi, no_hp, email, jadwal_praktik) 

@@ -1,34 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klinik Gigi Sehat</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0891b2',
-                        secondary: '#06b6d4'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-
-<body class="bg-gray-50">
-    <?php require_once '../app/views/layouts/header.php'; ?>
-
-    <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-primary to-secondary text-white py-16">
+<div class="bg-gradient-to-r from-primary to-secondary text-white py-16">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-4xl font-bold mb-4">Selamat Datang di Klinik Gigi Sehat</h2>
             <p class="text-xl mb-8">Perawatan gigi terbaik dengan dokter berpengalaman</p>
-            <a href="<?= BASE_URL; ?>/reservasi" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 inline-block">
+            <a href="<?= BASEURL ?>/reservasi" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 inline-block">
                 Buat Reservasi Sekarang
             </a>
         </div>
@@ -55,8 +29,3 @@
             </div>
         </div>
     </div>
-
-    <?php require_once '../app/views/layouts/footer.php' ; ?>
-</body>
-
-</html>
