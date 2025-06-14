@@ -28,7 +28,7 @@
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-4xl font-bold mb-4">Selamat Datang di Klinik Gigi Sehat</h2>
             <p class="text-xl mb-8">Perawatan gigi terbaik dengan dokter berpengalaman</p>
-            <a href="reservasi.php" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 inline-block">
+            <a href="<?= BASE_URL; ?>/reservasi" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 inline-block">
                 Buat Reservasi Sekarang
             </a>
         </div>

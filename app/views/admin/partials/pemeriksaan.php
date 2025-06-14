@@ -13,23 +13,33 @@
             <?= $_SESSION['error']; unset($_SESSION['error']); ?>
         </div>
     <?php endif; ?>
-    
+
     <form id="examinationForm" action="<?= BASE_URL; ?>/admin/prosesPemeriksaan" method="POST">
         <div class="grid md:grid-cols-2 gap-6">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Pasien</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Pasien (Dari Antrian Hari Ini)</label>
                 <select name="pasien" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
                     <option value="">Pilih Pasien</option>
-                    <option value="1">Budi Santoso - Scaling</option>
-                    <option value="2">Siti Aminah - Konsultasi</option>
+                    <?php if (!empty($data['pasien_antri'])): ?>
+                        <?php foreach($data['pasien_antri'] as $pasien): ?>
+                            <option value="<?= $pasien['pasien_id']; // Kirim ID-nya ?>">
+                                <?= htmlspecialchars($pasien['nama_lengkap'] . ' - ' . $pasien['nama_layanan']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </select>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Dokter</label>
                 <select name="dokter" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
                     <option value="">Pilih Dokter</option>
-                    <option value="1">Dr. Sarah Wijaya</option>
-                    <option value="2">Dr. Ahmad Fauzi</option>
+                    <?php if (!empty($data['dokter_list'])): ?>
+                        <?php foreach($data['dokter_list'] as $dokter): ?>
+                            <option value="<?= $dokter['dokter_id']; // Kirim ID-nya ?>">
+                                <?= htmlspecialchars($dokter['nama_dokter']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </select>
             </div>
         </div>
