@@ -1,6 +1,4 @@
 <?php
-// app/models/Reservasi.php
-
 require_once 'Database.php';
 
 class Reservasi {
@@ -10,26 +8,20 @@ class Reservasi {
         $this->db = new Database;
     }
 
-    // Method create yang sudah diperbaiki
+    // Menambahkan data reservasi baru
     public function create($data) {
         $this->db->query(
             'INSERT INTO reservasi (pasien_id, layanan_id, tanggal_reservasi, jam_reservasi, status) 
              VALUES (:pasien_id, :layanan_id, :tanggal_reservasi, :jam_reservasi, :status)'
         );
 
-        // Bind values
         $this->db->bind(':pasien_id', $data['pasien_id']);
         $this->db->bind(':layanan_id', $data['layanan_id']);
         $this->db->bind(':tanggal_reservasi', $data['tanggal_reservasi']);
         $this->db->bind(':jam_reservasi', $data['jam_reservasi']);
-        $this->db->bind(':status', 'Menunggu'); // Set status default
+        $this->db->bind(':status', 'Menunggu'); // status default
 
-        // Execute
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->db->execute();
     }
 
     // Mengambil data antrian untuk hari ini

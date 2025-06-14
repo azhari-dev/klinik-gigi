@@ -1,13 +1,12 @@
 <?php
 require_once 'Database.php';
 
-class Pasien {
+class Antrian {
     private $db;
 
     public function __construct() {
-        $this->db = new Database;
+        $this->db = new Database; // Instansiasi koneksi DB
     }
 
-    
     
 }

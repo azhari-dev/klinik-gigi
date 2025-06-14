@@ -8,65 +8,47 @@ class Dokter {
         $this->db = new Database; // Instansiasi koneksi DB
     }
 
-    /**
-     * Mengambil semua data dokter
-     * @return array Daftar dokter
-     */
+    // Mengambil semua data dokter
     public function getAll() {
-        // Kolom 'spesialisasi' diubah menjadi 'spesialis' sesuai database baru
-        $this->db->query('SELECT dokter_id, nama_dokter, spesialis FROM dokter ORDER BY nama_dokter ASC');
+        $this->db->query('SELECT * FROM dokter ORDER BY nama_dokter ASC');
         return $this->db->resultSet();
     }
 
-    /**
-     * Mengambil jadwal praktik dokter
-     * @return array Jadwal dokter
-     */
+    // Mengambil jadwal praktik dokter
     public function getJadwal() {
-        // Query ini menggabungkan jadwal dari tabel jadwal_dokter untuk setiap dokter.
         $this->db->query('
             SELECT 
-                d.dokter_id,
-                d.nama_dokter,
-                d.spesialis,
-                GROUP_CONCAT(
-                    CONCAT(jd.hari, ": ", TIME_FORMAT(jd.jam_mulai, "%H:%i"), " - ", TIME_FORMAT(jd.jam_selesai, "%H:%i")) 
-                    ORDER BY FIELD(jd.hari, "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu")
-                    SEPARATOR ", "
-                ) as jadwal_praktik
-            FROM dokter d
-            LEFT JOIN jadwal_dokter jd ON d.dokter_id = jd.dokter_id
-            GROUP BY d.dokter_id, d.nama_dokter, d.spesialis
-            ORDER BY d.nama_dokter ASC
+                dokter_id,
+                nama_dokter,
+                spesialisasi,
+                jadwal_praktik,
+                no_hp,
+                email
+            FROM dokter 
+            ORDER BY nama_dokter ASC
         ');
         return $this->db->resultSet();
     }
 
-    /**
-     * Mengambil data dokter berdasarkan ID
-     * @param int $id ID dokter
-     * @return array|false Data dokter atau false jika tidak ditemukan
-     */
+    // Mengambil data dokter berdasarkan ID
     public function getById($id) {
         $this->db->query('SELECT * FROM dokter WHERE dokter_id = :id');
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
 
-    /**
-     * Membuat data dokter baru
-     * @param array $data Data dokter
-     * @return bool Status berhasil atau tidak
-     */
+    // Menambahkan dokter baru
     public function create($data) {
-        // Disederhanakan sesuai dengan kolom di database baru
         $this->db->query('
-            INSERT INTO dokter (nama_dokter, spesialis) 
-            VALUES (:nama_dokter, :spesialis)
+            INSERT INTO dokter (nama_dokter, spesialisasi, no_hp, email, jadwal_praktik) 
+            VALUES (:nama_dokter, :spesialisasi, :no_hp, :email, :jadwal_praktik)
         ');
 
         $this->db->bind(':nama_dokter', $data['nama_dokter']);
-        $this->db->bind(':spesialis', $data['spesialis']);
+        $this->db->bind(':spesialisasi', $data['spesialisasi']);
+        $this->db->bind(':no_hp', $data['no_hp']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':jadwal_praktik', $data['jadwal_praktik']);
 
         return $this->db->execute();
     }
