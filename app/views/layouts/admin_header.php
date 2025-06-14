@@ -1,3 +1,9 @@
+<?php
+// Pastikan BASE_URL sudah didefinisikan
+if (!defined('BASE_URL')) {
+    require_once '../config/config.php';
+}
+?>
 <nav class="bg-white shadow-lg">
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex justify-between items-center py-4">

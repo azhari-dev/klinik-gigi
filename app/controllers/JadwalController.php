@@ -7,7 +7,7 @@ class JadwalController {
         // $jadwalDokter = $dokterModel->getJadwal();
 
         // Mengirim data ke view
-        require_once '../app/views/jadwal/index.php';
+        require_once '../app/views/jadwal/0';
     }
 }
 

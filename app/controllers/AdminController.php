@@ -22,7 +22,6 @@ class AdminController {
             $data = [
                 'antrian' => $reservasiModel->getAntrianHariIni(),
                 'riwayat' => $pembayaranModel->getRiwayatTransaksi()
-                // 'menunggu_pembayaran' => ... (akan ditambahkan nanti)
             ];
 
             // Memuat view dashboard dan mengirimkan data ke dalamnya
@@ -37,10 +36,12 @@ class AdminController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             try {
                 // Sanitize input
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $pasien = filter_input(INPUT_POST, 'pasien', FILTER_SANITIZE_STRING);
+                $dokter = filter_input(INPUT_POST, 'dokter', FILTER_SANITIZE_STRING);
+                $catatan = filter_input(INPUT_POST, 'catatan', FILTER_SANITIZE_STRING);
                 
                 // Validate input
-                if (empty($_POST['pasien']) || empty($_POST['dokter']) || empty($_POST['catatan'])) {
+                if (empty($pasien) || empty($dokter) || empty($catatan)) {
                     throw new Exception('Semua field harus diisi.');
                 }
                 
@@ -49,11 +50,14 @@ class AdminController {
                 // 2. Insert ke tabel pemeriksaan
                 // 3. Update status reservasi
                 
-                // For now, just redirect back
-                header('Location: ' . BASE_URL . '/admin?success=pemeriksaan');
+                // For now, just redirect back with success message
+                $_SESSION['success'] = 'Pemeriksaan berhasil disimpan!';
+                header('Location: ' . BASE_URL . '/admin');
                 exit();
             } catch (Exception $e) {
-                die('Error: ' . $e->getMessage());
+                $_SESSION['error'] = 'Error: ' . $e->getMessage();
+                header('Location: ' . BASE_URL . '/admin');
+                exit();
             }
         } else {
             header('Location: ' . BASE_URL . '/admin');
@@ -65,10 +69,12 @@ class AdminController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             try {
                 // Sanitize input
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $pasien = filter_input(INPUT_POST, 'pasien', FILTER_SANITIZE_STRING);
+                $total = filter_input(INPUT_POST, 'total', FILTER_SANITIZE_STRING);
+                $metode = filter_input(INPUT_POST, 'metode', FILTER_SANITIZE_STRING);
                 
                 // Validate input
-                if (empty($_POST['pasien']) || empty($_POST['total']) || empty($_POST['metode'])) {
+                if (empty($pasien) || empty($total) || empty($metode)) {
                     throw new Exception('Semua field harus diisi.');
                 }
                 
@@ -77,11 +83,14 @@ class AdminController {
                 // 2. Insert ke tabel pembayaran
                 // 3. Update status pemeriksaan
                 
-                // For now, just redirect back
-                header('Location: ' . BASE_URL . '/admin?success=pembayaran');
+                // For now, just redirect back with success message
+                $_SESSION['success'] = 'Pembayaran berhasil diproses!';
+                header('Location: ' . BASE_URL . '/admin');
                 exit();
             } catch (Exception $e) {
-                die('Error: ' . $e->getMessage());
+                $_SESSION['error'] = 'Error: ' . $e->getMessage();
+                header('Location: ' . BASE_URL . '/admin');
+                exit();
             }
         } else {
             header('Location: ' . BASE_URL . '/admin');
