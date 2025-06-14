@@ -5,7 +5,7 @@ class AdminController {
 
     // ... (method index() tetap sama) ...
 
-    public function dashboard() {
+    public function index() {
         try {
             // Inisialisasi semua model yang diperlukan
             $reservasiModel = new Reservasi();
