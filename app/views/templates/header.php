@@ -26,6 +26,7 @@
                 <a href="<?= BASEURL ?>/home" class="hover:text-primary">Beranda</a>
                 <a href="<?= BASEURL ?>/jadwal" class="hover:text-primary">Jadwal</a>
                 <a href="<?= BASEURL ?>/reservasi" class="hover:text-primary">Reservasi</a>
+                <a href="<?= BASEURL ?>/riwayat" class="hover:text-primary">Riwayat</a>
             </nav>
         </div>
     </header>
