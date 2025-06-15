@@ -8,6 +8,7 @@ class Dokter {
         $this->db = new Database; // Instansiasi koneksi DB
     }
 
+
     public function getJadwal() {
         $query = "SELECT d.dokter_id, d.nama_dokter, d.spesialis, j.hari, j.jam_mulai, j.jam_selesai
                   FROM dokter d

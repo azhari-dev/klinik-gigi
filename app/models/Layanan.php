@@ -1,5 +1,5 @@
 <?php
-require_once 'Database.php';
+// require_once 'Database.php';
 
 class Layanan {
     private $db;
@@ -9,7 +9,7 @@ class Layanan {
     }
 
     // Mengambil semua data layanan dari database
-    public function getAll() {
+    public function getAllLayanan() {
         $this->db->query('SELECT * FROM layanan ORDER BY nama_layanan ASC');
         return $this->db->resultSet();
     }
