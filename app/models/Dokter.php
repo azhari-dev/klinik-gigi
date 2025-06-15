@@ -16,5 +16,5 @@ class Dokter {
                   ORDER BY d.dokter_id, FIELD(j.hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'), j.jam_mulai";
         $this->db->query($query);
         return $this->db->resultSet();
-    }
+    }   
 }
