@@ -4,7 +4,7 @@ class Jadwal extends Controller
     public function index()
     {
         $data['title'] = 'Jadwal Dokter';
-        // $data['jadwal'] = $this->model('Dokter')->getJadwal(); // jika model tersedia
+        $data['jadwal'] = $this->model('Dokter')->getJadwal(); // jika model tersedia
 
         $this->view('templates/header', $data);
         $this->view('jadwal/index', $data);
