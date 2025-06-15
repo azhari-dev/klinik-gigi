@@ -1,5 +1,5 @@
 <?php
-require_once 'Database.php';
+// require_once 'Database.php';
 
 class Dokter {
     private $db;
@@ -9,7 +9,7 @@ class Dokter {
     }
 
     // Mengambil semua data dokter
-    public function getAll() {
+    public function getAllDokter() {
         $this->db->query('SELECT * FROM dokter ORDER BY nama_dokter ASC');
         return $this->db->resultSet();
     }
