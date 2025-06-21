@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Waktu pembuatan: 20 Jun 2025 pada 18.26
+-- Waktu pembuatan: 21 Jun 2025 pada 18.17
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -130,7 +130,7 @@ INSERT INTO `layanan` (`layanan_id`, `nama_layanan`, `harga`) VALUES
 (1, 'Pemeriksaan Umum', 100000.00),
 (2, 'Tambal Gigi', 150000.00),
 (3, 'Cabut Gigi', 120000.00),
-(4, 'Scaling', 130000.00);
+(4, 'Scaling', 100000.00);
 
 -- --------------------------------------------------------
 
@@ -176,7 +176,7 @@ CREATE TABLE `pembayaran` (
 
 INSERT INTO `pembayaran` (`pembayaran_id`, `pemeriksaan_id`, `total_bayar`, `harus_dibayar`, `status_id`) VALUES
 (1, 1, 150000.00, 150000.00, 2),
-(2, 2, 120000.00, 120000.00, 2);
+(2, 2, 120000.00, 120000.00, 1);
 
 -- --------------------------------------------------------
 
@@ -220,10 +220,13 @@ CREATE TABLE `reservasi` (
 --
 
 INSERT INTO `reservasi` (`reservasi_id`, `pasien_id`, `layanan_id`, `tanggal_reservasi`, `jam_reservasi`, `status_id`) VALUES
-(1, 8, 1, '2025-06-01', '09:00:00', 1),
+(1, 8, 1, '2025-06-01', '16:00:00', 1),
 (2, 9, 2, '2025-06-02', '10:00:00', 2),
 (3, 10, 3, '2025-06-03', '11:00:00', 2),
-(4, 11, 4, '2025-06-04', '12:00:00', 1);
+(4, 11, 4, '2025-06-30', '14:00:00', 1),
+(5, 8, 3, '2025-06-30', '10:00:00', 1),
+(6, 8, 3, '2025-06-03', '10:00:00', 1),
+(7, 9, 3, '2025-06-30', '19:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -316,6 +319,31 @@ INSERT INTO `users` (`user_id`, `username`, `password_hash`, `role`) VALUES
 (9, 'pasien2', '123', 'pasien'),
 (10, 'pasien3', '123', 'pasien'),
 (11, 'pasien4', '123', 'pasien');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `v_riwayat`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `v_riwayat` (
+`pasien_id` int(11)
+,`tanggal` date
+,`layanan` varchar(100)
+,`dokter` varchar(100)
+,`total` decimal(10,2)
+,`total_bayar` decimal(10,2)
+,`catatan_dokter` mediumtext
+);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `v_riwayat`
+--
+DROP TABLE IF EXISTS `v_riwayat`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_riwayat`  AS SELECT `r`.`pasien_id` AS `pasien_id`, `r`.`tanggal_reservasi` AS `tanggal`, `l`.`nama_layanan` AS `layanan`, `d`.`nama_dokter` AS `dokter`, `l`.`harga` AS `total`, coalesce(`pm`.`total_bayar`,0) AS `total_bayar`, coalesce(`p`.`catatan_dokter`,'-') AS `catatan_dokter` FROM ((((`reservasi` `r` join `layanan` `l` on(`r`.`layanan_id` = `l`.`layanan_id`)) left join `pemeriksaan` `p` on(`r`.`reservasi_id` = `p`.`reservasi_id`)) left join `dokter` `d` on(`p`.`dokter_id` = `d`.`dokter_id`)) left join `pembayaran` `pm` on(`p`.`pemeriksaan_id` = `pm`.`pemeriksaan_id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -435,7 +463,7 @@ ALTER TABLE `pemeriksaan`
 -- AUTO_INCREMENT untuk tabel `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `reservasi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `reservasi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat`
