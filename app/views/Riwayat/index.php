@@ -1,5 +1,5 @@
-<div class="p-6">
-    <h3 class="text-2xl font-bold mb-6 text-primary">Riwayat</h3>
+<div class="p-6 py-16 ">
+    <h2 class="text-2xl font-bold mb-6 mt-6 text-primary">Riwayat</h2>
     <div class="overflow-x-auto rounded-lg shadow">
         <table class="w-full table-auto bg-white rounded-lg overflow-hidden">
             <thead>
@@ -13,30 +13,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b hover:bg-gray-50 transition">
-                    <td class="px-6 py-4">2025-06-09</td>
-                    <td class="px-6 py-4">Scaling</td>
-                    <td class="px-6 py-4">Dr. Smith</td>
-                    <td class="px-6 py-4 text-green-600 font-semibold">Rp 150.000</td>
-                    <td class="px-6 py-4 text-red-600 font-semibold">Rp 1.500.000</td>
-                    <td class="px-6 py-4">Perlu pemeriksaan lebih lanjut</td>
-                </tr>
-                <tr class="border-b hover:bg-gray-50 transition">
-                    <td class="px-6 py-4">2025-06-10</td>
-                    <td class="px-6 py-4">Tambal Gigi</td>
-                    <td class="px-6 py-4">Dr. Jane</td>
-                    <td class="px-6 py-4 text-green-600 font-semibold">Rp 200.000</td>
-                    <td class="px-6 py-4 text-red-600 font-semibold">Rp 2.000.000</td>
-                    <td class="px-6 py-4">Harus tambal 10 kali lagi</td>
-                </tr>
-                <tr class="border-b hover:bg-gray-50 transition">
-                    <td class="px-6 py-4">2025-06-11</td>
-                    <td class="px-6 py-4">Konsultasi</td>
-                    <td class="px-6 py-4">Dr. Lee</td>
-                    <td class="px-6 py-4 text-green-600 font-semibold">Rp 100.000</td>
-                    <td class="px-6 py-4 text-green-600 font-semibold">Rp 100.000</td>
-                    <td class="px-6 py-4">tidak ada</td>
-                </tr>
+                <?php if (empty($data['riwayat'])): ?>
+                    <tr>
+                        <td colspan="6" class="py-4 text-center">Tidak ada riwayat.</td>
+                    </tr>
+                <?php else: ?>
+                    <?php foreach ($data['riwayat'] as $row): ?>
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="px-6 py-4"><?= htmlspecialchars($row['tanggal']) ?></td>
+                            <td class="px-6 py-4"><?= htmlspecialchars($row['layanan']) ?></td>
+                            <td class="px-6 py-4"><?= htmlspecialchars($row['dokter']) ?></td>
+                            <td class="px-6 py-4 text-green-600 font-semibold">Rp <?= number_format($row['total'], 0, ',', '.') ?></td>
+                            <td class="px-6 py-4 text-red-600 font-semibold">Rp <?= number_format($row['total_bayar'], 0, ',', '.') ?></td>
+                            <td class="px-6 py-4"><?= htmlspecialchars($row['catatan_dokter']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
