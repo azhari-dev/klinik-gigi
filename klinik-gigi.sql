@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Waktu pembuatan: 21 Jun 2025 pada 18.17
+-- Waktu pembuatan: 22 Jun 2025 pada 09.23
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `klinik-gigi`
 --
+
+DELIMITER $$
+--
+-- Prosedur
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ambil_antrian_hari_ini` ()   BEGIN
+    SELECT 
+        r.reservasi_id,
+        p.nama_pasien,
+        l.nama_layanan AS layanan,
+        r.jam_reservasi,
+        r.status_id
+    FROM reservasi r
+    JOIN pasien p ON r.pasien_id = p.pasien_id
+    JOIN layanan l ON r.layanan_id = l.layanan_id
+    WHERE r.tanggal_reservasi = CURDATE()
+    ORDER BY r.jam_reservasi;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -175,8 +195,8 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`pembayaran_id`, `pemeriksaan_id`, `total_bayar`, `harus_dibayar`, `status_id`) VALUES
-(1, 1, 150000.00, 150000.00, 2),
-(2, 2, 120000.00, 120000.00, 1);
+(1, 1, 0.00, 150000.00, 1),
+(2, 2, 120000.00, 120000.00, 2);
 
 -- --------------------------------------------------------
 
@@ -220,13 +240,14 @@ CREATE TABLE `reservasi` (
 --
 
 INSERT INTO `reservasi` (`reservasi_id`, `pasien_id`, `layanan_id`, `tanggal_reservasi`, `jam_reservasi`, `status_id`) VALUES
-(1, 8, 1, '2025-06-01', '16:00:00', 1),
+(1, 8, 1, '2025-06-22', '16:00:00', 2),
 (2, 9, 2, '2025-06-02', '10:00:00', 2),
-(3, 10, 3, '2025-06-03', '11:00:00', 2),
-(4, 11, 4, '2025-06-30', '14:00:00', 1),
-(5, 8, 3, '2025-06-30', '10:00:00', 1),
-(6, 8, 3, '2025-06-03', '10:00:00', 1),
-(7, 9, 3, '2025-06-30', '19:00:00', 1);
+(3, 10, 3, '2025-06-22', '11:00:00', 2),
+(4, 11, 4, '2025-06-22', '14:00:00', 2),
+(5, 8, 3, '2025-06-22', '10:00:00', 2),
+(6, 8, 3, '2025-06-23', '10:00:00', 1),
+(7, 9, 3, '2025-06-22', '19:00:00', 1),
+(8, 9, 3, '2025-06-22', '15:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -287,8 +308,8 @@ CREATE TABLE `status_reservasi` (
 
 INSERT INTO `status_reservasi` (`status_id`, `nama_status`) VALUES
 (1, 'Menunggu'),
-(2, 'Selesai'),
-(3, 'Dibatalkan');
+(2, 'Diperiksa'),
+(3, 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -463,7 +484,7 @@ ALTER TABLE `pemeriksaan`
 -- AUTO_INCREMENT untuk tabel `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `reservasi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `reservasi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat`
