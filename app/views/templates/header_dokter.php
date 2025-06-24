@@ -26,7 +26,7 @@
                 <a href="../index.php" class="text-2xl font-bold text-primary">🦷 Klinik Gigi Sehat - Admin</a>
             </div>
             <div class="flex space-x-4">
-                <a href="logout.php" class="bg-red-600 text-white px-4 py-2 rounded">Logout</a>
+                <a href="<?= BASEURL ?>/login/logout" class="bg-red-600 text-white px-4 py-2 rounded">Logout</a>
             </div>
         </div>
     </div>

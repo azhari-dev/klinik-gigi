@@ -1,28 +1,31 @@
-<div class="p-6">
-    <h3 class="text-xl font-semibold mb-4">Riwayat Transaksi</h3>
-    <div class="overflow-x-auto">
-        <table class="w-full table-auto">
+<div class="container mt-5">
+    <h3>Riwayat Pemeriksaan</h3>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered">
             <thead>
-                <tr class="bg-gray-50">
-                    <th class="px-4 py-2 text-left">Tanggal</th>
-                    <th class="px-4 py-2 text-left">Pasien</th>
-                    <th class="px-4 py-2 text-left">Layanan</th>
-                    <th class="px-4 py-2 text-left">Catatan Dokter</th>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Nama Pasien</th>
+                    <th>Layanan</th>
+                    <th>Catatan Dokter</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b">
-                    <td class="px-4 py-2">2025-06-09</td>
-                    <td class="px-4 py-2">John Doe</td>
-                    <td class="px-4 py-2">Tambal Gigi</td>
-                    <td class="px-4 py-2">Harus tambal 10 kali lagi</td>
-                </tr>
-                <tr class="border-b">
-                    <td class="px-4 py-2">2025-06-09</td>
-                    <td class="px-4 py-2">Jane Smith</td>
-                    <td class="px-4 py-2">Konsultasi</td>
-                    <td class="px-4 py-2">Perlu pemeriksaan lebih lanjut</td>
-                </tr>
+                <?php if (empty($data['riwayat'])) : ?>
+                    <tr>
+                        <td colspan="4" class="text-center">Belum ada riwayat pemeriksaan.</td>
+                    </tr>
+                <?php else : ?>
+                    <?php foreach ($data['riwayat'] as $item) : ?>
+                        <tr>
+                            <td><?= htmlspecialchars(date('d F Y', strtotime($item['tanggal']))); ?></td>
+                            <td><?= htmlspecialchars($item['nama_pasien']); ?></td>
+                            <td><?= htmlspecialchars($item['nama_layanan']); ?></td>
+                            <td><?= nl2br(htmlspecialchars($item['catatan_dokter'] ?? '')); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

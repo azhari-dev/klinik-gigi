@@ -12,20 +12,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b">
-                    <td class="px-4 py-2">1</td>
-                    <td class="px-4 py-2">Budi Santoso</td>
-                    <td class="px-4 py-2">Scaling</td>
-                    <td class="px-4 py-2">08:00</td>
-                    <td class="px-4 py-2"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Menunggu</span></td>
-                </tr>
-                <tr class="border-b">
-                    <td class="px-4 py-2">2</td>
-                    <td class="px-4 py-2">Siti Aminah</td>
-                    <td class="px-4 py-2">Konsultasi</td>
-                    <td class="px-4 py-2">09:00</td>
-                    <td class="px-4 py-2"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Menunggu</span></td>
-                </tr>
+                <?php if (empty($data['antrian'])): ?>
+                    <tr>
+                        <td colspan="5" class="text-center text-gray-500 px-4 py-4">Belum ada antrian pasien.</td>
+                    </tr>
+                <?php else: ?>
+                    <?php $no = 1; foreach ($data['antrian'] as $antrian): ?>
+                        <tr class="border-b">
+                            <td class="px-4 py-2"><?= $no++; ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($antrian['nama_pasien']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($antrian['nama_layanan']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars(substr($antrian['jam'], 0, 5)) ?></td>
+                            <td class="px-4 py-2"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm"><?= htmlspecialchars($antrian['status']) ?></span></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

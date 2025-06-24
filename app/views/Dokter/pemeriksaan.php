@@ -1,24 +1,27 @@
-<div class="p-6">
-    <h3 class="text-xl font-semibold mb-4">Form Pemeriksaan</h3>
-    <form id="examinationForm" action="proses_pemeriksaan.php" method="POST">
-        <div class="mt-6 ">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Pasien</label>
-                <select name="pasien" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                    <option>Budi Santoso - Scaling</option>
-                    <option>Siti Aminah - Konsultasi</option>
-                </select>
+<div class="container mt-5">
+    <h3>Form Pemeriksaan Pasien</h3>
+    <hr>
+
+    <?php if ($data['pasien_sekarang']) : ?>
+        <form action="<?= BASEURL; ?>/dokter/selesaiPemeriksaan" method="post">
+            <input type="hidden" name="reservasi_id" value="<?= $data['pasien_sekarang']['id']; ?>">
+
+            <div class="form-group">
+                <label for="nama_pasien">Nama Pasien</label>
+                <input type="text" class="form-control" id="nama_pasien" value="<?= htmlspecialchars($data['pasien_sekarang']['nama_pasien']); ?>" readonly>
+                <small class="form-text text-muted">Nama pasien diisi otomatis dari antrian.</small>
             </div>
-            
+
+            <div class="form-group">
+                <label for="catatan_dokter">Catatan Dokter</label>
+                <textarea class="form-control" id="catatan_dokter" name="catatan_dokter" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Selesai Pemeriksaan</button>
+        </form>
+    <?php else : ?>
+        <div class="alert alert-info" role="alert">
+            Belum ada pasien yang mengantri untuk diperiksa.
         </div>
-        <div class="mt-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Catatan Dokter</label>
-            <textarea name="catatan" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Masukkan catatan pemeriksaan..."></textarea>
-        </div>
-        <div class="mt-6 text-center">
-            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-cyan-700">
-                Selesai Pemeriksaan
-            </button>
-        </div>
-    </form>
+    <?php endif; ?>
 </div>
