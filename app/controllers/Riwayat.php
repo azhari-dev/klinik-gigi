@@ -5,7 +5,7 @@ class Riwayat extends Controller {
         $data['judul'] = 'Halaman Riwayat';
 
         // Ambil user id dari session (ganti sesuai sistem login Anda)
-        $pasien_id = 8; // Ganti dengan $_SESSION['user_id'] jika sudah ada sistem login
+        $pasien_id = 9; // Ganti dengan $_SESSION['user_id'] jika sudah ada sistem login
 
         if (!$pasien_id) {
             echo "Anda belum login.";

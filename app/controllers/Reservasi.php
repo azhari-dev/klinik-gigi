@@ -6,7 +6,7 @@ class Reservasi extends Controller {
         $data['layanan'] = $this->model('Layanan')->getAllLayanan();
 
         // Ambil user_id dari session (atau sistem login Anda)
-        $user_id = $_SESSION['user_id'] ?? 9; // Ganti dengan sistem login Anda
+        $user_id = 9; // Ganti dengan sistem login Anda
 
         // Ambil reservasi aktif user (status 1/2)
         $data['reservasi_aktif'] = $this->model('ReservasiModel')->getReservasiAktifByUser($user_id);

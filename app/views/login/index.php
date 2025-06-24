@@ -20,7 +20,7 @@
     <div class="max-w-md w-full bg-white p-8 rounded shadow">
         <h2 class="text-center text-2xl font-bold text-gray-700 mb-6">Login ke Klinik Gigi Sehat</h2>
 
-        <form action="<?= BASEURL ?>/login" method="POST" class="space-y-4">
+        <form action="<?= BASEURL ?>/login/proses" method="POST" class="space-y-4">
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                 <input type="text" name="username" id="username" required

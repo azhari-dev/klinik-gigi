@@ -6,9 +6,8 @@
                 <tr class="bg-primary text-white">
                     <th class="px-6 py-3 text-left font-semibold">Tanggal</th>
                     <th class="px-6 py-3 text-left font-semibold">Layanan</th>
-                    <th class="px-6 py-3 text-left font-semibold">Dokter</th>
                     <th class="px-6 py-3 text-left font-semibold">Total</th>
-                    <th class="px-6 py-3 text-left font-semibold">Yang harus dibayar</th>
+                    <th class="px-6 py-3 text-left font-semibold">Terbayar</th>
                     <th class="px-6 py-3 text-left font-semibold">Catatan Dokter</th>
                 </tr>
             </thead>
@@ -22,9 +21,11 @@
                         <tr class="border-b hover:bg-gray-50 transition">
                             <td class="px-6 py-4"><?= htmlspecialchars($row['tanggal']) ?></td>
                             <td class="px-6 py-4"><?= htmlspecialchars($row['layanan']) ?></td>
-                            <td class="px-6 py-4"><?= htmlspecialchars($row['dokter']) ?></td>
                             <td class="px-6 py-4 text-green-600 font-semibold">Rp <?= number_format($row['total'], 0, ',', '.') ?></td>
-                            <td class="px-6 py-4 text-red-600 font-semibold">Rp <?= number_format($row['total_bayar'], 0, ',', '.') ?></td>
+                            <td class="px-6 py-4 font-semibold
+                                <?= ($row['total_bayar'] == $row['total']) ? 'text-green-600' : 'text-red-600' ?>">
+                                Rp <?= number_format($row['total_bayar'], 0, ',', '.') ?>
+                            </td>
                             <td class="px-6 py-4"><?= htmlspecialchars($row['catatan_dokter']) ?></td>
                         </tr>
                     <?php endforeach; ?>
